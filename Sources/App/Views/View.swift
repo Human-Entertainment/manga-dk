@@ -9,7 +9,7 @@ import Plot
 
 struct Views {
     func index() -> HTML {
-        HTML(.body(.mangaCard()))
+        HTML(.head(.goodHead()) ,.body(.mangaCard()))
     }
 }
 
@@ -20,4 +20,20 @@ extension Node where Context: HTML.BodyContext {
             .img(.src("https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx108092-vbL3rf0b23sp.jpg"))
         )
     }
+}
+
+extension Node where Context == HTML.HeadContext {
+    static func goodHead() -> Self {
+        return .title("Hello")
+    }
+}
+
+@_functionBuilder
+struct MangaCard {
+    func buildBlock() -> String {
+        return "hello"
+    }
+}
+func main(){
+    print(MangaCard())
 }
