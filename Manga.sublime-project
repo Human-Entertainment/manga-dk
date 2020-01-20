@@ -18,7 +18,7 @@
 		},
 		{
 			"name": "Site Tests",
-			"path": "Tests/Manga-DKTests"
+			"path": "Tests/AppTests"
 		}
 	],
 	"settings":
