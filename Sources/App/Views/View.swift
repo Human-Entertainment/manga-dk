@@ -15,7 +15,7 @@ struct Views {
 
 extension Node where Context: HTML.BodyContext {
     static func mangaCard() -> Self {
-        return .div(
+        .div(
             .class("manga"),
             .img(.src("https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx108092-vbL3rf0b23sp.jpg"))
         )
@@ -24,6 +24,6 @@ extension Node where Context: HTML.BodyContext {
 
 extension Node where Context == HTML.HeadContext {
     static func goodHead() -> Self {
-        return .title("Hello")
+        .group([.title("Hello"),.stylesheet("style.css")])
     }
 }
