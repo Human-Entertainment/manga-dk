@@ -13,12 +13,16 @@
 			"path": "."
 		},
 		{
-			"name": "Manga",
+			"name": "Site",
 			"path": "Sources/App"
 		},
 		{
 			"name": "Site Tests",
 			"path": "Tests/AppTests"
+		},
+		{
+			"name": "Packages",
+			"path": ".build/checkouts"
 		}
 	],
 	"settings":
