@@ -27,13 +27,3 @@ extension Node where Context == HTML.HeadContext {
         return .title("Hello")
     }
 }
-
-@_functionBuilder
-struct MangaCard {
-    func buildBlock() -> String {
-        return "hello"
-    }
-}
-func main(){
-    print(MangaCard())
-}
