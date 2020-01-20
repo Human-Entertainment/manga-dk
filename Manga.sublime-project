@@ -1,0 +1,33 @@
+{
+	"folders":
+	[
+		{
+			"folder_exclude_patterns":
+			[
+				".*",
+				"docs",
+				"Sources",
+				"Tests"
+			],
+			"name": "Project",
+			"path": "."
+		},
+		{
+			"name": "Manga",
+			"path": "Sources/App"
+		},
+		{
+			"name": "Site Tests",
+			"path": "Tests/Manga-DKTests"
+		}
+	],
+	"settings":
+	{
+		"SublimeAnarchyDebug":
+		{
+			"breakpoints":
+			[
+			]
+		}
+	}
+}
