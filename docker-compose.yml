@@ -2,7 +2,7 @@ version: '3.7'
 
 services:
   Manga:
-    image: Manga:latest
+    image: manga:latest
     build:
       context: .
     depends_on:
