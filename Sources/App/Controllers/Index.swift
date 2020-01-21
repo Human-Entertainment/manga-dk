@@ -7,7 +7,7 @@ struct Index: RouteCollection {
 	}
 
     func index(req: Request) throws -> EventLoopFuture<HTML> {
-        return Views().index().encodeResponse(for: req)
+        Views.underConstruction().encodeResponse(for: req)
 	}
     
 }

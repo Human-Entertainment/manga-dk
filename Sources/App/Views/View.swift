@@ -10,6 +10,11 @@ import Plot
 struct Views {
     func index() -> HTML {
         HTML(.head(.goodHead()) ,.body(.mangaCard()))
+    static func underConstruction() -> HTML {
+        let underConstruction = "Manga.dk is currently under construction"
+        return HTML(.head(.goodHead(title: underConstruction)),
+             .body(.div(.class("construction"),
+                        .p("\(underConstruction)"))))
     }
 }
 
@@ -25,5 +30,7 @@ extension Node where Context: HTML.BodyContext {
 extension Node where Context == HTML.HeadContext {
     static func goodHead() -> Self {
         .group([.title("Hello"),.stylesheet("style.css")])
+    static func goodHead(title: String) -> Self {
+        .group([.title(title),.stylesheet("style.css")])
     }
 }
