@@ -1,0 +1,19 @@
+/* latin */
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 400;
+    src: local('JetBrains Mono'), local('JetBrainsMono-Regular'), url(/font/JetBrainsMono-Regular.tff) format('tff');
+}
+
+
+.construction {
+    font: "JetBrains Mono"
+    align-items: center;
+    justify-content: center;
+    display: flex;
+}
+    
+.contains, p {
+    font-family: "JetBrains Mono";
+}
