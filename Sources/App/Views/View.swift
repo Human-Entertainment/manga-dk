@@ -8,8 +8,11 @@
 import Plot
 
 struct Views {
+    let manga = Manga(coverURL: "hello.jpeg", title: "The order is a rabbit")
     func index() -> HTML {
-        HTML(.head(.goodHead()) ,.body(.mangaCard()))
+        HTML(.head(.goodHead(title: "Manga.dk")) ,.body(.mangaCard(manga)))
+    }
+    
     static func underConstruction() -> HTML {
         let underConstruction = "Manga.dk is currently under construction"
         return HTML(.head(.goodHead(title: underConstruction)),
@@ -19,17 +22,16 @@ struct Views {
 }
 
 extension Node where Context: HTML.BodyContext {
-    static func mangaCard() -> Self {
+    static func mangaCard(_ manga: Manga) -> Self {
         .div(
-            .class("manga"),
-            .img(.src("https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx108092-vbL3rf0b23sp.jpg"))
+            .class("manga-card"),
+            .img(.src(manga.coverURL)),
+            .p("\(manga.title)")
         )
     }
 }
 
 extension Node where Context == HTML.HeadContext {
-    static func goodHead() -> Self {
-        .group([.title("Hello"),.stylesheet("style.css")])
     static func goodHead(title: String) -> Self {
         .group([.title(title),.stylesheet("style.css")])
     }
