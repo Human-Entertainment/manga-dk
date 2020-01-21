@@ -13,7 +13,7 @@ struct Views {
         HTML(.head(.goodHead(title: "Manga.dk")) ,.body(.mangaCard(manga)))
     }
     
-    static func underConstruction() -> HTML {
+    static var underConstruction: HTML {
         let underConstruction = "Manga.dk is currently under construction"
         return HTML(.head(.goodHead(title: underConstruction)),
              .body(.div(.class("construction"),
