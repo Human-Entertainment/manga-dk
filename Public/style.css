@@ -1,12 +1,3 @@
-/* latin */
-@font-face {
-  font-family: 'JetBrains Mono';
-  font-style: normal;
-  font-weight: 400;
-    src: local('JetBrains Mono'), local('JetBrainsMono-Regular'), url(/font/JetBrainsMono-Regular.tff) format('tff');
-}
-
-
 .construction {
   display:flex;
   justify-content:center;
@@ -17,6 +8,7 @@
 }
     
 .contains, p {
-    font-family: "JetBrains Mono";
+    font-family: 'JetBrains Mono', Calibri, Helvetica, sans-serif;
     font-size: 24px;
+    letter-spacing: .5em;
 }

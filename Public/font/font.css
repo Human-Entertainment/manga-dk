@@ -1,0 +1,6 @@
+/* latin */
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  src: local('JetBrains Mono'), local('JetBrainsMono-Regular'),url('/font/JetBrainsMono-Regular.ttf') format('truetype');
+}

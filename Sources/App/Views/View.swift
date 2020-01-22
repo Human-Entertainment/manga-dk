@@ -33,6 +33,6 @@ extension Node where Context: HTML.BodyContext {
 
 extension Node where Context == HTML.HeadContext {
     static func goodHead(title: String) -> Self {
-        .group([.title(title),.stylesheet("style.css")])
+        .group([.title(title),.stylesheet("/style.css"),.stylesheet("/font/font.css")])
     }
 }
