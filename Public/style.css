@@ -1,3 +1,5 @@
+html, body {padding:0; margin:0;}
+
 .construction {
   display:flex;
   justify-content:center;
@@ -11,4 +13,12 @@
     font-family: 'JetBrains Mono', Calibri, Helvetica, sans-serif;
     font-size: 24px;
     letter-spacing: .5em;
+}
+
+.partners {
+    height: 4em;
+    border-radius: 10px;
+    margin-right: .5em;
+    margin-left: .5em;
+    filter: grayscale(1);
 }
