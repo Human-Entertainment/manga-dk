@@ -57,7 +57,7 @@ extension Node where Context: HTML.BodyContext {
         )
     }
     static func mangaFooter(year: Int = 2020) -> Self {
-        .footer(.p("Manga.dk is © Inuk Entertainmen 2020",.if(year != 2020 && year > 2020,
+        .footer(.p("Manga.dk is © Inuk Entertainment 2020",.if(year != 2020 && year > 2020,
                     "-\(year)"
                     )))
     }
