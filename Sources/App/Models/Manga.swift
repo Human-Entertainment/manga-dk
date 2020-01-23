@@ -8,4 +8,5 @@
 struct Manga {
     let coverURL: String
     let title: String
+    let description: String
 }

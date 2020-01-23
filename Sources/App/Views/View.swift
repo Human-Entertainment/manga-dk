@@ -8,8 +8,9 @@
 import Plot
 
 struct Views {
-    let manga = Manga(coverURL: "hello.jpeg", title: "The order is a rabbit")
-    func index() -> HTML {
+    // TODO: Make manga conform to fluent, to make this more dynamic
+    static let manga = Manga(coverURL: "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/nx5081-4RLo87fu8TsC.jpg", title: "Bakemonogatari", description: "Araragi gets stabled")
+    static func index() -> HTML {
         HTML(.head(.goodHead(title: "Manga.dk")) ,.body(.mangaCard(manga)))
     }
     
@@ -17,10 +18,10 @@ struct Views {
         let underConstruction = "Manga.dk is currently under construction"
         return HTML(.head(.goodHead(title: underConstruction)),
              .body(.div(.class("construction"),
-                        .p("\(underConstruction)",.br(),.br(),
-                           "Consider checking our partners:",.br(),.br(),
-                           .forEach(partners){ $0.toHTML() },.br(),.br(),
-                           "We also have a ",.a(.href("https://discord.gg/CxPyCCJ"),.target(.blank), "Discord")
+                        .p("\(underConstruction)", .br(),.br(),
+                           "Consider checking our partners:", .br(),.br(),
+                           .forEach(partners){ $0.toHTML() }, .br(),.br(),
+                           "We also have a ", .a(.href("https://discord.gg/CxPyCCJ"),.target(.blank), "Discord")
                         )
                     )
             )
@@ -43,7 +44,8 @@ extension Node where Context: HTML.BodyContext {
         .div(
             .class("manga-card"),
             .img(.src(manga.coverURL)),
-            .p("\(manga.title)")
+            .p(.class("manga-card-title"),"\(manga.title)"),
+            .p("\(manga.description)")
         )
     }
 }
