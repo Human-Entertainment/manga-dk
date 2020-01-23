@@ -6,12 +6,20 @@
 //
 
 import Plot
+import Foundation
+
+
 
 struct Views {
+    private static var year: Int {
+        let date = Date()
+        let calendar = Calendar.current
+        return calendar.component(.year, from: date)
+    }
     // TODO: Make manga conform to fluent, to make this more dynamic
     static let manga = Manga(coverURL: "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/nx5081-4RLo87fu8TsC.jpg", title: "Bakemonogatari", description: "Araragi gets stabled")
     static func index() -> HTML {
-        HTML(.head(.goodHead(title: "Manga.dk")) ,.body(.mangaCard(manga),.mangaFooter()))
+        HTML(.head(.goodHead(title: "Manga.dk")) ,.body(.mangaCard(manga),.mangaFooter(year: year)))
     }
     
     static func underConstruction(_ partners: Partners...) -> HTML {
@@ -21,7 +29,8 @@ struct Views {
                         .p("\(underConstruction)", .br(),.br(),
                            "Consider checking our partners:", .br(),.br(),
                            .forEach(partners){ $0.toHTML() }, .br(),.br(),
-                           "We also have a ", .a(.href("https://discord.gg/CxPyCCJ"),.target(.blank), "Discord")
+                           "We also have a ", .a(.href("https://discord.gg/CxPyCCJ"),.target(.blank), "Discord"),
+                           .mangaFooter(year: year)
                         )
                     )
             )
@@ -44,13 +53,11 @@ extension Node where Context: HTML.BodyContext {
         .div(
             .class("manga-card"),
             .img(.src(manga.coverURL)),
-            .p(.class("manga-card-title"),"\(manga.title)"),
-            .p("\(manga.description)")
+            .p("\(manga.title)")
         )
     }
     static func mangaFooter(year: Int = 2020) -> Self {
-        .footer(.class("footer"),
-                .p("© Inuk Entertainmen 2020",.if(year != 2020 && year > 2020,
+        .footer(.p("Manga.dk is © Inuk Entertainmen 2020",.if(year != 2020 && year > 2020,
                     "-\(year)"
                     )))
     }
