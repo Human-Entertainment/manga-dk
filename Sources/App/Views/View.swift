@@ -11,7 +11,7 @@ struct Views {
     // TODO: Make manga conform to fluent, to make this more dynamic
     static let manga = Manga(coverURL: "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/nx5081-4RLo87fu8TsC.jpg", title: "Bakemonogatari", description: "Araragi gets stabled")
     static func index() -> HTML {
-        HTML(.head(.goodHead(title: "Manga.dk")) ,.body(.mangaCard(manga)))
+        HTML(.head(.goodHead(title: "Manga.dk")) ,.body(.mangaCard(manga),.mangaFooter()))
     }
     
     static func underConstruction(_ partners: Partners...) -> HTML {
@@ -47,6 +47,12 @@ extension Node where Context: HTML.BodyContext {
             .p(.class("manga-card-title"),"\(manga.title)"),
             .p("\(manga.description)")
         )
+    }
+    static func mangaFooter(year: Int = 2020) -> Self {
+        .footer(.class("footer"),
+                .p("© Inuk Entertainmen 2020",.if(year != 2020 && year > 2020,
+                    "-\(year)"
+                    )))
     }
 }
 

@@ -1,7 +1,11 @@
 html, body {padding:0; margin:0;}
 
 body{
-    background: #d3d3d3;
+    background: var(--mangadkcolor);
+}
+
+:root{
+    --mangadkcolor: #f3f3f3;
 }
 
 .construction {
@@ -45,4 +49,12 @@ div.construction > p {
 }
 div.manga-card:hover {
     box-shadow: .3em .3em .3em #888;
+}
+
+.footer {
+    text-align: center;
+    bottom: 0em;
+    position: fixed;
+    width: 100%;
+    background: var(--mangadkcolor);
 }
