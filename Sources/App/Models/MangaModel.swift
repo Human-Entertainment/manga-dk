@@ -14,7 +14,7 @@ final class Manga: Model, Content {
     @ID(key: "id")
     var id: Int?
     
-    @Field(key: "cover")
+    @Field(key: "coverURL")
     var coverURL: String
     
     @Field(key: "title")
