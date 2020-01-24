@@ -14,6 +14,7 @@ public func configure(_ app: Application) throws {
         database: Environment.get("POSTGRES_DB") ?? "vapor"
     ), as: .psql)
 
+    app.migrations.add(Manga.Migration())
     // register routes
     try routes(app)
 }
