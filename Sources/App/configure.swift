@@ -11,9 +11,9 @@ public func configure(_ app: Application) throws {
 
     app.databases.use(.postgres(
         hostname: Environment.get("POSTGRES_HOSTNAME") ?? "localhost",
-        username: Environment.get("POSTGRES_USER") ?? "vapor",
-        password: Environment.get("POSTGRES_PASSWORD") ?? "vapor",
-        database: Environment.get("POSTGRES_DB") ?? "vapor"
+        username: Environment.get("POSTGRES_USER") ?? "vapor_username",
+        password: Environment.get("POSTGRES_PASSWORD") ?? "vapor_password",
+        database: Environment.get("POSTGRES_DB") ?? "vapor_database"
     ), as: .psql)
 
     app.migrations.add(User.Migration())
