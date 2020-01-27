@@ -27,16 +27,18 @@ final class UsersManga: Model {
     }
 }
 
-extension UsersManga: Migration {
-    func prepare(on database: Database) -> EventLoopFuture<Void> {
-        database.schema(UsersManga.schema)
-            .field("id", .int, .identifier(auto: true))
-            .field("user_id", .int, .required)
-            .field("manga_id", .int, .required)
-            .create()
-    }
-    
-    func revert(on database: Database) -> EventLoopFuture<Void> {
-        database.schema(UsersManga.schema).delete()
+extension UsersManga {
+    struct Migration: Fluent.Migration {
+        func prepare(on database: Database) -> EventLoopFuture<Void> {
+            database.schema(UsersManga.schema)
+                .field("id", .int, .identifier(auto: true))
+                .field("user_id", .int, .required)
+                .field("manga_id", .int, .required)
+                .create()
+        }
+        
+        func revert(on database: Database) -> EventLoopFuture<Void> {
+            database.schema(UsersManga.schema).delete()
+        }
     }
 }

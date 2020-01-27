@@ -26,12 +26,18 @@ final class Manga: Model, Content {
     @Siblings(through: UsersManga.self, from: \.$manga, to: \.$user)
     var owners: [User]
     
-    init(){}
+    init() { }
     
     init(id: Int? = nil, coverURL: String, title: String, description: String) {
         self.id = id
         self.coverURL = coverURL
         self.title = title
         self.description = title
+    }
+}
+
+extension Manga {
+    struct PurchaseContent: Content {
+        let id: Int
     }
 }

@@ -9,11 +9,20 @@ import Vapor
 
 struct UserController: RouteCollection {
     func boot(routes: RoutesBuilder) throws {
-        let userRoutes = routes.grouped("users")
+        let usersRoutes = routes.grouped("users")
+        usersRoutes.get("", use: getUsers)
+        let userRoutes = routes.grouped("user")
         userRoutes.post("", use: createUser)
-        userRoutes.get("", use: getUsers)
         userRoutes.get(":id", use: getUser)
         userRoutes.get(":id", "collection", use: publicCollection)
+        userRoutes.post(":id", "add", use: addManga)
+    }
+    
+    func addManga(req: Request) throws -> EventLoopFuture<[Manga]> {
+        guard let userID: User.IDValue = req.parameters.get("id") else { throw Abort(.notFound) }
+        guard let bookID: Manga.IDValue = try req.content.decode(Manga.PurchaseContent.self).id else { throw Abort(.notFound) }
+        try UsersManga(userID: userID, mangaID: bookID).save(on: req.db)
+        return try self.publicCollection(req: req)
     }
     
     func getUsers(req: Request) throws -> EventLoopFuture<[User]> {
@@ -47,7 +56,11 @@ struct UserController: RouteCollection {
         return User
             .find(userID, on: req.db)
             .unwrap(or: Abort(.notFound))
-            .map{ $0.books }
+            .flatMap {
+                try! $0.$books
+                        .query(on: req.db)
+                        .all()
+            }
     }
 
 }

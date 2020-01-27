@@ -18,6 +18,7 @@ public func configure(_ app: Application) throws {
 
     app.migrations.add(User.Migration())
     app.migrations.add(Manga.Migration())
+    app.migrations.add(UsersManga.Migration())
     
     // register routes
     try routes(app)
