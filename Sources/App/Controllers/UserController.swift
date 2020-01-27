@@ -11,6 +11,13 @@ struct UserController: RouteCollection {
     func boot(routes: RoutesBuilder) throws {
         let userRoutes = routes.grouped("users")
         userRoutes.post("", use: createUser)
+        userRoutes.get("", use: getUsers)
+        userRoutes.get(":id", use: getUser)
+//        userRoutes.get(":id", "collection")
+    }
+    
+    func getUsers(req: Request) throws -> EventLoopFuture<[User]> {
+        User.query(on: req.db).all()
     }
     
     func createUser(req: Request) throws -> EventLoopFuture<User> {
@@ -27,6 +34,17 @@ struct UserController: RouteCollection {
         return user.save(on: req.db)
             .map { user }
     }
+    
+    func getUser(req: Request) throws -> EventLoopFuture<User> {
+        let userID: User.IDValue? = req.parameters.get("id")
+        return User.find(userID, on: req.db)
+          .unwrap(or: Abort(.notFound))
+        
+    }
+    
+//    func publicCollection(req: Request) throws -> EventLoopFuture<[Manga]> {
+        
+//    }
 
 }
 
@@ -45,4 +63,10 @@ extension User.Create: Validatable {
         validations.add("email", as: String.self, is: .email)
         validations.add("password", as: String.self, is: .count(8...))
     }
+}
+
+enum UserError: Error {
+    case noUser
+    case notAnID
+    case noUserFound
 }
