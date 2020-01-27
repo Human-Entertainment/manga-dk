@@ -23,6 +23,9 @@ final class Manga: Model, Content {
     @Field(key: "description")
     var description: String
     
+    @Siblings(through: UsersManga.self, from: \.$manga, to: \.$user)
+    var owners: [User]
+    
     init(){}
     
     init(id: Int? = nil, coverURL: String, title: String, description: String) {

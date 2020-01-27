@@ -13,7 +13,7 @@ struct UserController: RouteCollection {
         userRoutes.post("", use: createUser)
         userRoutes.get("", use: getUsers)
         userRoutes.get(":id", use: getUser)
-//        userRoutes.get(":id", "collection")
+        userRoutes.get(":id", "collection", use: publicCollection)
     }
     
     func getUsers(req: Request) throws -> EventLoopFuture<[User]> {
@@ -42,9 +42,13 @@ struct UserController: RouteCollection {
         
     }
     
-//    func publicCollection(req: Request) throws -> EventLoopFuture<[Manga]> {
-        
-//    }
+    func publicCollection(req: Request) throws -> EventLoopFuture<[Manga]> {
+        let userID: User.IDValue? = req.parameters.get("id")
+        return User
+            .find(userID, on: req.db)
+            .unwrap(or: Abort(.notFound))
+            .map{ $0.books }
+    }
 
 }
 

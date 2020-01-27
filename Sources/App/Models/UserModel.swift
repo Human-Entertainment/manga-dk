@@ -26,6 +26,9 @@ final class User: Model, Content {
     
     @Field(key: "userRole")
     var role: UserRoles
+    
+    @Siblings(through: UsersManga.self, from: \.$user, to: \.$manga)
+    var books: [Manga]
 
     init() { }
 
