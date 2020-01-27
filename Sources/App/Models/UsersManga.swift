@@ -29,6 +29,8 @@ final class UsersManga: Model {
 
 extension UsersManga {
     struct Migration: Fluent.Migration {
+        let name = UsersManga.schema
+        
         func prepare(on database: Database) -> EventLoopFuture<Void> {
             database.schema(UsersManga.schema)
                 .field("id", .int, .identifier(auto: true))

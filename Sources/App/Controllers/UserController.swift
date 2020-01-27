@@ -16,6 +16,18 @@ struct UserController: RouteCollection {
         userRoutes.get(":id", use: getUser)
         userRoutes.get(":id", "collection", use: publicCollection)
         userRoutes.post(":id", "add", use: addManga)
+        
+        let passwordProtected = userRoutes.grouped(User.authenticator().middleware())
+        passwordProtected.post("login", use: login)
+        
+        let tokenProtected = userRoutes.grouped(UserToken.authenticator().middleware())
+        tokenProtected.get("me") { req -> User in
+            try req.auth.require(User.self)
+        }
+        tokenProtected.get("logout") { req -> HTTPStatus in
+            req.auth.logout(User.self)
+            return .ok
+        }
     }
     
     func addManga(req: Request) throws -> EventLoopFuture<[Manga]> {
@@ -61,6 +73,20 @@ struct UserController: RouteCollection {
                         .query(on: req.db)
                         .all()
             }
+    }
+    
+    func login(req: Request) throws -> EventLoopFuture<UserToken> {
+        let user = try req.auth.require(User.self)
+        let userToBeSuper = Environment.get("SUPERMAIL")
+        if user.email == userToBeSuper {
+            print("\(user.name) has become super admin")
+            user.role = .superAdmin
+            user.save(on: req.db)
+        }
+        let token = try user.generateToken()
+        req.auth.login(user.self)
+        return token.save(on: req.db)
+            .map { token }
     }
 
 }

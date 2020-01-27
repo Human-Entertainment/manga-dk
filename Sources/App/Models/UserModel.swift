@@ -56,7 +56,7 @@ struct UserRoles: OptionSet, Codable  {
     }
     
     let rawValue: UInt64
-    
+
     func encode(to encoder: Encoder) throws {
       try rawValue.encode(to: encoder)
     }
@@ -66,12 +66,13 @@ struct UserRoles: OptionSet, Codable  {
     }
     
     /// This is a given user, used for default Init in User
-    static let everyone: Self = []
+    static let everyone: UserRoles = []
     /// Anyone with this priv can change a different user
-    static let modUser = Self(rawValue: 1 << 1)
+    static let modUser = UserRoles(rawValue: 1 << 1)
     /// This user can edit and add books to the system
-    static let mangaUpload = Self(rawValue: 1 << 2)
+    static let mangaUpload = UserRoles(rawValue: 1 << 2)
     
     /// Has all the rights, you shouldn't check on this, only make a user super admin
-    static let superAdmin = Self(rawValue: .max)
+    static let superAdmin = UserRoles(rawValue: 1 << 0)
 }
+
