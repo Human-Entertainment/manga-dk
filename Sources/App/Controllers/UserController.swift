@@ -20,8 +20,8 @@ struct UserController: RouteCollection {
     
     func addManga(req: Request) throws -> EventLoopFuture<[Manga]> {
         guard let userID: User.IDValue = req.parameters.get("id") else { throw Abort(.notFound) }
-        guard let bookID: Manga.IDValue = try req.content.decode(Manga.PurchaseContent.self).id else { throw Abort(.notFound) }
-        try UsersManga(userID: userID, mangaID: bookID).save(on: req.db)
+        guard let bookID: Manga.IDValue = try? req.content.decode(Manga.PurchaseContent.self).id else { throw Abort(.notFound) }
+        _ = UsersManga(userID: userID, mangaID: bookID).save(on: req.db)
         return try self.publicCollection(req: req)
     }
     
